@@ -8,9 +8,6 @@ let currentGame;
 let gameScore;
 
 let slotNums = []
-let mf = 1;
-let m = 0;
-let item;
 
 let values = [1,2,3,4,5,6,7,8,9]
 let x = getRandomInt(10)
@@ -140,14 +137,17 @@ function playerHomePage(player){
     body.innerHTML = ''
     
     //score logic
+    let maxScore = 0
     let scores = []
-    let scoreHelp = player.games.forEach(game => {
-        if(game.score != null){
+    if(player.games.length == 0){
+        player.games.forEach(game => {
             scores.push(parseInt(game.score))
-        }
-    })
-    let maxScore = Math.max(...scores)
-    // scores.push(parseInt(game.score))
+        })
+    }
+    if (scores.length != 0){
+        maxScore = Math.max(...scores)
+    }
+    
     // create elements
     let container = document.createElement('div')
     let welcomeDiv = document.createElement('div')
