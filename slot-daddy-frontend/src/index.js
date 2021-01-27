@@ -15,10 +15,10 @@ let time2 = 20
 
 let x3 = getRandomInt(10)
 let time3 = 20
-//this which waits until done to move on
+
 getAllPlayers()
 onPageLoad()
-//get all players
+
 
 // DATA
 function getAllPlayers(){
@@ -29,7 +29,6 @@ function getAllPlayers(){
 
 
 function createPlayer(player){
-    //debugger
     fetch(playersURL,{
         method: 'POST',
         headers: {
@@ -215,17 +214,14 @@ function newGame(player){
     body.innerHTML = ''
 
     // create elements
-    // gameWindow = document.createElement('div')
-    // playerScoreDiv = document.createElement('div')
+    gameWindow = document.createElement('div')
+    playerScoreDiv = document.createElement('div')
     rollBtnDiv = document.createElement('div')
-    // cardDiv = document.createElement('div')
-    // endBtnDiv = document.createElement('div')
-    // rulesDiv = document.createElement('div')
-
-    // username = document.createElement('h5')
-    // score = document.createElement('h1')
+    endBtnDiv = document.createElement('div')
+    rulesDiv = document.createElement('div')
+    username = document.createElement('h5')
+    score = document.createElement('h1')
     rollBtn = document.createElement('button')
-
     slotMachine = document.createElement('div')
 
     slotMachine1 = document.createElement('div')
@@ -257,21 +253,18 @@ function newGame(player){
     slotValue3.textContent = 7
 
     rollBtn.textContent = 'ROLL'
-
     rollBtn.addEventListener('click', masterRoll)
 
-    
+
     slotMachine1.appendChild(slotValue1)
     slotMachine2.appendChild(slotValue2)
     slotMachine3.appendChild(slotValue3)
-    slotMachine.append(slotMachine1,slotMachine2,slotMachine3,rollBtn)
-    body.appendChild(slotMachine)
-
+    slotMachine.append(slotMachine1,slotMachine2,slotMachine3)
 
     // append elements
-    // playerScoreDiv.append(username,score)
-    // gameWindow.append(playerScoreDiv,rollBtnDiv,cardDiv,endBtnDiv,rulesDiv)
-    // body.appendChild(gameWindow)
+    playerScoreDiv.append(username,score)
+    gameWindow.append(playerScoreDiv,rollBtnDiv,slotMachine,endBtnDiv,rulesDiv)
+    body.appendChild(gameWindow)
 }
 
 function masterRoll(){
