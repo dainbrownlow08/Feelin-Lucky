@@ -139,7 +139,6 @@ function playerHomePage(player){
     //score logic
     let maxScore = 0
     let scores = []
-    console.log(player.games)
     if(player.games.length == 0){
         player.games.forEach(game => {
             scores.push(parseInt(game.score))
@@ -148,14 +147,7 @@ function playerHomePage(player){
     if (scores.length != 0){
         maxScore = Math.max(...scores)
     }
-    // let scoreHelp = player.games.forEach(game => {
-    //     if(game.score != null){
-    //         scores.push(parseInt(game.score))
-    //     }
-    // })
-    // if (scores != []){
-    //     maxScore = Math.max(...scores)
-    // }
+    
     // create elements
     let container = document.createElement('div')
     let welcomeDiv = document.createElement('div')
