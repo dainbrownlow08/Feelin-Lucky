@@ -5,6 +5,7 @@ const body = document.querySelector('body')
 const errors = document.getElementById('errors')
 let allPlayers = []
 let currentGame;
+let currentPlayer;
 let gameScore = 0
 
 let slotNums = []
@@ -27,6 +28,7 @@ onPageLoad()
 function getAllPlayers(){
     fetch(playersURL)
     .then(r => r.json())
+    // .then(console.log)
     .then(data => allPlayers = data)
 }
 
@@ -48,6 +50,7 @@ function createPlayer(player){
             errorP.textContent = data['error']
             errors.appendChild(errorP)
         }else{
+            allPlayers.push(data)
             playerHomePage(data)
         }
     })
@@ -77,7 +80,8 @@ function addToken(player){
         body: JSON.stringify({player_id: player.id})
     })
     .then(r => r.json())
-    .then(count => updateTokenBalance(count))
+    // .then(console.log)
+    .then(bigtoken => updateTokenBalance(bigtoken))
     .catch(error => console.log(error.message))
 }
 
@@ -91,7 +95,10 @@ function createGame(player){
         body: JSON.stringify({player_id: player.id})
     })
     .then(r => r.json())
-    .then(game => currentGame = game)
+    .then(game => {
+      currentGame = game
+      currentPlayer = player
+      })
     .catch(error => console.log(error.message))
 }
 
@@ -135,6 +142,7 @@ function onPageLoad(){
 
 function playerHomePage(player){
     body.innerHTML = ''
+    console.log(player.tokens.length)
     
     //score logic
     let maxScore = 0
@@ -230,17 +238,73 @@ function registerScreen(){
     body.appendChild(form)
 }
 
-function gameOver(){
+function gameOver(arr){
     body.innerHTML = ''
-    let test = document.createElement('h1')
-    test.textContent = 'GAME OVER'
-    body.appendChild(test)
+
+    //sort array
+    arr = arr.sort((a, b) => (a.score > b.score) ? -1 : 1)
+
+    //create elements
+    let gameOverDiv = document.createElement('div')
+    let scoreDiv = document.createElement('div')
+    let usernameDiv = document.createElement('div')
+    let leaderBoardDiv = document.createElement('div')
+    let playAgainDiv = document.createElement('div')
+    let score = document.createElement('h1')
+    let userName = document.createElement('h4')
+    let winnersBanner = document.createElement('h1')
+    let winnersOl = document.createElement('ol')
+    let youSuck = document.createElement('h2')
+    let playAgainBtn = document.createElement('button')
+
+    //modify elements
+    score.textContent = 'GAME OVER'
+    userName.textContent = currentPlayer.username
+    winnersBanner.textContent = 'WINNERS'
+    youSuck.textContent = 'YOU SUCK!'
+    youSuck.id = 'you-suck'
+    playAgainBtn.textContent = 'PLAY AGAIN?'
+    playAgainBtn.id = 'play-again-button'
+
+    playAgainBtn.addEventListener('click', () => playerHomePage(currentPlayer))
+
+    //playerSpan logic
+    function highScorePlayer(game){
+      return allPlayers.find(player => player.id == game.player_id)
+    }
+
+    //populate scoreboard
+    arr.forEach(game => {
+      let li = document.createElement('li')
+      let scoreSpan = document.createElement('span')
+      let playerSpan = document.createElement('span')
+      scoreSpan.id = 'score-span'
+      playerSpan.id = 'player-span'
+      scoreSpan.textContent = game.score
+      playerSpan.textContent = highScorePlayer(game).username
+      li.append(scoreSpan, playerSpan)
+      winnersOl.appendChild(li)
+    })
+
+    //append elements
+    scoreDiv.appendChild(score)
+    usernameDiv.appendChild(userName)
+    leaderBoardDiv.append(winnersBanner, winnersOl)
+    playAgainDiv.append(youSuck, playAgainBtn)
+    gameOverDiv.append(scoreDiv, usernameDiv, leaderBoardDiv, playAgainDiv)
+    body.appendChild(gameOverDiv)
 }
 
-function updateTokenBalance(count){
+function updateTokenBalance(bigtoken){
     let tokenSpan = document.getElementById('token-span')
     tokenSpan.innerHTML = ''
-    tokenSpan.textContent = count
+    tokenSpan.textContent = bigtoken['token_count']
+  
+    allPlayers.forEach(player => {
+      if (player.id == bigtoken['token']['player_id']){
+        player.tokens.push(bigtoken["token"])
+      }
+    })
 }
 
 // GAME
@@ -327,7 +391,7 @@ function masterRoll(){
     setTimeout(function(){
         console.log(slotNums)
         updateScore(slotNums);
-    },6700);
+    },6900);
 
 }
 
