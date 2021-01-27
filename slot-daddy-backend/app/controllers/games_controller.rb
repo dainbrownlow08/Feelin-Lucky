@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
     def index
-        games = Game.all
+        games = Game.topTen
         render json: games, except: [:created_at,:updated_at]
     end
 
@@ -9,4 +9,10 @@ class GamesController < ApplicationController
         render json: game, except: [:created_at,:updated_at]
     end
     
+    def update
+        game = Game.find(params["id"].to_i)
+        game.update(score: params["game"]["score"])
+        render json: game
+    end
 end
+
