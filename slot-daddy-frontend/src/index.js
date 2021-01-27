@@ -5,6 +5,14 @@ const body = document.querySelector('body')
 const errors = document.getElementById('errors')
 let allPlayers = []
 let currentGame;
+
+let values = [1,2,3,4,5,6,7,8,9]
+let index1 = 0
+let index2 = 0
+let index3 = 0
+let time1 = 20
+let time2 = 20
+let time3 = 20
 //this which waits until done to move on
 getAllPlayers()
 onPageLoad()
@@ -201,15 +209,90 @@ function updateTokenBalance(count){
 // GAME
 
 function newGame(player){
-    createGame(player)
+    //createGame(player)
     body.innerHTML = ''
 
+    // create elements
+    // gameWindow = document.createElement('div')
+    // playerScoreDiv = document.createElement('div')
+    rollBtnDiv = document.createElement('div')
+    // cardDiv = document.createElement('div')
+    // endBtnDiv = document.createElement('div')
+    // rulesDiv = document.createElement('div')
+
+    // username = document.createElement('h5')
+    // score = document.createElement('h1')
+    rollBtn = document.createElement('button')
+
+    slotMachine = document.createElement('div')
+
+    slotMachine1 = document.createElement('div')
+    slotMachine2 = document.createElement('div')
+    slotMachine3 = document.createElement('div')
+
+    slotValue1 = document.createElement('h1')
+    slotValue2 = document.createElement('h1')
+    slotValue3 = document.createElement('h1')
 
 
+    slotMachine1.className = 'slot'
+    slotMachine1.id = 'slot1'
+    slotValue1.className = 'value'
+    slotValue1.id = 'value1'
+
+    slotMachine2.className = 'slot'
+    slotMachine2.id = 'slot2'
+    slotValue2.className = 'value'
+    slotValue2.id = 'value2'
+
+    slotMachine3.className = 'slot'
+    slotMachine3.id = 'slot3'
+    slotValue3.className = 'value'
+    slotValue3.id = 'value3'
+
+    slotValue1.textContent = 7
+    slotValue2.textContent = 7
+    slotValue3.textContent = 7
+
+    rollBtn.textContent = 'ROLL'
+
+    rollBtn.addEventListener('click', rollDiv)
+
+    
+    slotMachine1.appendChild(slotValue1)
+    slotMachine2.appendChild(slotValue2)
+    slotMachine3.appendChild(slotValue3)
+    slotMachine.append(slotMachine1,slotMachine2,slotMachine3,rollBtn)
+    body.appendChild(slotMachine)
+
+
+    // append elements
+    // playerScoreDiv.append(username,score)
+    // gameWindow.append(playerScoreDiv,rollBtnDiv,cardDiv,endBtnDiv,rulesDiv)
+    // body.appendChild(gameWindow)
+}
+
+
+function rollDiv(id){
+    let value1 = document.getElementById('value1')
+    //console.log(value1)
+    if(time > 250){resetRoll()
+    return}
+    value1.textContent = values[x]
+    setTimeout(rollDiv, time)
+    time += 10
+    if(x+1 == 9){
+        x = 0
+    }else{
+        x += 1
+    }
 }
 
 //end game page
-
+function resetRoll(){
+    x = 0
+    time = 20
+}
 
 
 // HANDLERS
@@ -232,6 +315,6 @@ function handleLogin(e){
 
 
 
-
+// SLOT LOGIC
 
 
