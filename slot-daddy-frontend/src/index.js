@@ -139,7 +139,7 @@ function playerHomePage(player){
     //score logic
     let maxScore = 0
     let scores = []
-    if(player.games.length == 0){
+    if(player.games.length != 0){
         player.games.forEach(game => {
             scores.push(parseInt(game.score))
         })
