@@ -132,7 +132,9 @@ function onPageLoad(){
     let registerButton = document.createElement('button')
 
     loginButton.textContent = "Login"
+    loginButton.id = 'login-button'
     registerButton.textContent = "Register"
+    registerButton.id = 'register-button'
 
     loginButton.addEventListener('click',loginScreen)
     registerButton.addEventListener('click',registerScreen)
@@ -319,7 +321,8 @@ function newGame(player){
     rollBtnDiv = document.createElement('div')
     
     endBtnDiv = document.createElement('div')
-    rulesDiv = document.createElement('div')
+    rulesDiv1 = document.createElement('div')
+    rulesDiv2 = document.createElement('div')
 
     username = document.createElement('h2')
     score = document.createElement('h1')
@@ -364,7 +367,9 @@ function newGame(player){
     rollBtn.textContent = 'ROLL'
     endBtn.textContent = 'END GAME'
 
-    rulesDiv.textContent = "HEY there should be rules here.!"
+    rulesDiv1.textContent = "HEY there should be rules here.!"
+    rulesDiv2.textContent = "HEY there should ALSO be rules here.!"
+
 
     rollBtn.addEventListener('click', masterRoll)
     endBtn.addEventListener('click',() => endGame(currentGame))
@@ -380,7 +385,7 @@ function newGame(player){
 
     // append elements
     playerScoreDiv.append(username,score)
-    gameWindow.append(playerScoreDiv,rollBtnDiv,slotMachine,endBtnDiv,rulesDiv)
+    gameWindow.append(playerScoreDiv,rulesDiv1,rulesDiv2,rollBtnDiv,slotMachine,endBtnDiv)
     body.appendChild(gameWindow)
 }
 
