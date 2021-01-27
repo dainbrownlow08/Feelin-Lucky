@@ -5,6 +5,12 @@ const body = document.querySelector('body')
 const errors = document.getElementById('errors')
 let allPlayers = []
 let currentGame;
+let gameScore;
+
+let slotNums = []
+let mf = 1;
+let m = 0;
+let item;
 
 let values = [1,2,3,4,5,6,7,8,9]
 let x = getRandomInt(10)
@@ -29,7 +35,6 @@ function getAllPlayers(){
 
 
 function createPlayer(player){
-    //debugger
     fetch(playersURL,{
         method: 'POST',
         headers: {
@@ -46,7 +51,7 @@ function createPlayer(player){
             errorP.textContent = data['error']
             errors.appendChild(errorP)
         }else{
-            // player home page
+            playerHomePage(data)
         }
     })
     .catch(error => console.log(error.message))
@@ -91,6 +96,26 @@ function createGame(player){
     .then(r => r.json())
     .then(game => currentGame = game)
     .catch(error => console.log(error.message))
+}
+
+function endGame(game){
+    fetch(gamesURL+`/${game.id}`,{
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({score: gameScore})
+    })
+    .then(r => r.json())
+    .then(getHighScores)
+    .catch(error => console.log(error.message))
+}
+
+function getHighScores(){
+    fetch(gamesURL)
+    .then(r => r.json())
+    .then(gameOver)
 }
 
 
@@ -202,6 +227,13 @@ function registerScreen(){
     body.appendChild(form)
 }
 
+function gameOver(){
+    body.innerHTML = ''
+    let test = document.createElement('h1')
+    test.textContent = 'GAME OVER'
+    body.appendChild(test)
+}
+
 function updateTokenBalance(count){
     let tokenSpan = document.getElementById('token-span')
     tokenSpan.innerHTML = ''
@@ -211,20 +243,21 @@ function updateTokenBalance(count){
 // GAME
 
 function newGame(player){
-    //createGame(player)
+    createGame(player)
     body.innerHTML = ''
 
     // create elements
-    // gameWindow = document.createElement('div')
-    // playerScoreDiv = document.createElement('div')
+    gameWindow = document.createElement('div')
+    playerScoreDiv = document.createElement('div')
     rollBtnDiv = document.createElement('div')
-    // cardDiv = document.createElement('div')
-    // endBtnDiv = document.createElement('div')
-    // rulesDiv = document.createElement('div')
+    
+    endBtnDiv = document.createElement('div')
+    rulesDiv = document.createElement('div')
 
-    // username = document.createElement('h5')
-    // score = document.createElement('h1')
+    username = document.createElement('h2')
+    score = document.createElement('h1')
     rollBtn = document.createElement('button')
+    endBtn = document.createElement('button')
 
     slotMachine = document.createElement('div')
 
@@ -256,35 +289,54 @@ function newGame(player){
     slotValue2.textContent = 7
     slotValue3.textContent = 7
 
+    username.textContent = `< ${player.username} >`
+
+    score.id = 'score'
+    score.textContent = 0
+
     rollBtn.textContent = 'ROLL'
+    endBtn.textContent = 'END GAME'
+
+    rulesDiv.textContent = "HEY there should be rules here.!"
 
     rollBtn.addEventListener('click', masterRoll)
-
+    endBtn.addEventListener('click',() => endGame(currentGame))
     
     slotMachine1.appendChild(slotValue1)
     slotMachine2.appendChild(slotValue2)
     slotMachine3.appendChild(slotValue3)
-    slotMachine.append(slotMachine1,slotMachine2,slotMachine3,rollBtn)
-    body.appendChild(slotMachine)
+    
+    rollBtnDiv.appendChild(rollBtn)
+    endBtnDiv.appendChild(endBtn)
+    slotMachine.append(slotMachine1,slotMachine2,slotMachine3)
 
 
     // append elements
-    // playerScoreDiv.append(username,score)
-    // gameWindow.append(playerScoreDiv,rollBtnDiv,cardDiv,endBtnDiv,rulesDiv)
-    // body.appendChild(gameWindow)
+    playerScoreDiv.append(username,score)
+    gameWindow.append(playerScoreDiv,rollBtnDiv,slotMachine,endBtnDiv,rulesDiv)
+    body.appendChild(gameWindow)
 }
 
 function masterRoll(){
     rollDiv1()
     rollDiv2()
     rollDiv3()
+    setTimeout(function(){
+        console.log(slotNums)
+        updateScore(slotNums);
+    },6450);
+
 }
+
 
 
 function rollDiv1(){
     let value = document.getElementById('value1')
-    if(time > 250){resetRoll()
-    return}
+    if(time > 250){
+        resetRoll()
+        slotNums[0] = parseInt(value.textContent)
+        return
+    }
     value.textContent = values[x]
     setTimeout(rollDiv1, time)
     time += 10
@@ -297,8 +349,11 @@ function rollDiv1(){
 
 function rollDiv2(){
     let value = document.getElementById('value2')
-    if(time2 > 300){resetRoll2()
-    return}
+    if(time2 > 300){
+        resetRoll2()
+        slotNums[1] = parseInt(value.textContent)
+        return
+    }
     value.textContent = values[x2]
     setTimeout(rollDiv2, time2)
     time2 += 10
@@ -311,8 +366,11 @@ function rollDiv2(){
 
 function rollDiv3(){
     let value = document.getElementById('value3')
-    if(time3 > 350){resetRoll3()
-    return}
+    if(time3 > 350){
+        resetRoll3()
+        slotNums[2] = parseInt(value.textContent)
+        return
+    }
     value.textContent = values[x3]
     setTimeout(rollDiv3, time3)
     time3 += 10
@@ -328,6 +386,60 @@ function rollDiv3(){
 
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
+}
+
+function updateScore(arr){
+    score = document.getElementById('score')
+    currentScore = parseInt(score.textContent)
+    newScore = 0
+    counts = {}
+
+    for(i = 0; i < arr.length; i++){
+        if(counts[arr[i]]){
+            counts[arr[i]] += 1
+        }else{
+            counts[arr[i]] = 1
+        }
+    }
+    let countObj = Object.values(counts);
+    let max = Math.max(...countObj);
+    if(max === 1){
+        return
+    }
+    if(max === 2){
+        newScore = 250
+    }
+    if(max === 3){
+        if(arr[0] === 1){
+            newScore = currentScore * -1
+        }
+        if(arr[0] === 2){
+            newScore = 200
+        }
+        if(arr[0] === 3){
+            newScore = 300
+        }
+        if(arr[0] === 4){
+            newScore = 400
+        }
+        if(arr[0] === 5){
+            newScore = 500
+        }
+        if(arr[0] === 6){
+            newScore = 600
+        }
+        if(arr[0] === 7){
+            newScore = 5000
+        }
+        if(arr[0] === 8){
+            newScore = 800
+        }
+        if(arr[0] === 9){
+            newScore = 900
+        }
+    }
+    score.textContent = currentScore + newScore
+    gameScore = currentScore + newScore
 }
 
 //end game page
