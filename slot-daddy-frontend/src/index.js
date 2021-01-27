@@ -7,11 +7,13 @@ let allPlayers = []
 let currentGame;
 
 let values = [1,2,3,4,5,6,7,8,9]
-let index1 = 0
-let index2 = 0
-let index3 = 0
-let time1 = 20
+let x = getRandomInt(10)
+let time = 20
+
+let x2 = getRandomInt(10)
 let time2 = 20
+
+let x3 = getRandomInt(10)
 let time3 = 20
 //this which waits until done to move on
 getAllPlayers()
@@ -256,7 +258,7 @@ function newGame(player){
 
     rollBtn.textContent = 'ROLL'
 
-    rollBtn.addEventListener('click', rollDiv)
+    rollBtn.addEventListener('click', masterRoll)
 
     
     slotMachine1.appendChild(slotValue1)
@@ -272,14 +274,19 @@ function newGame(player){
     // body.appendChild(gameWindow)
 }
 
+function masterRoll(){
+    rollDiv1()
+    rollDiv2()
+    rollDiv3()
+}
 
-function rollDiv(id){
-    let value1 = document.getElementById('value1')
-    //console.log(value1)
+
+function rollDiv1(){
+    let value = document.getElementById('value1')
     if(time > 250){resetRoll()
     return}
-    value1.textContent = values[x]
-    setTimeout(rollDiv, time)
+    value.textContent = values[x]
+    setTimeout(rollDiv1, time)
     time += 10
     if(x+1 == 9){
         x = 0
@@ -288,10 +295,55 @@ function rollDiv(id){
     }
 }
 
+function rollDiv2(){
+    let value = document.getElementById('value2')
+    if(time2 > 300){resetRoll2()
+    return}
+    value.textContent = values[x2]
+    setTimeout(rollDiv2, time2)
+    time2 += 10
+    if(x2+1 == 9){
+        x2 = 0
+    }else{
+        x2 += 1
+    }
+}
+
+function rollDiv3(){
+    let value = document.getElementById('value3')
+    if(time3 > 350){resetRoll3()
+    return}
+    value.textContent = values[x3]
+    setTimeout(rollDiv3, time3)
+    time3 += 10
+    if(x3+1 == 9){
+        x3 = 0
+    }else{
+        x3 += 1
+    }
+}
+
+
+//MATH SHIT
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
 //end game page
 function resetRoll(){
-    x = 0
+    x = getRandomInt(10)
     time = 20
+}
+
+function resetRoll2(){
+    x2 = getRandomInt(10)
+    time2 = 20
+}
+
+function resetRoll3(){
+    x3 = getRandomInt(10)
+    time3 = 20
 }
 
 
