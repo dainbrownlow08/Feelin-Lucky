@@ -5,9 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
-Player.delete_all
 Game.delete_all
+Player.delete_all
 
 x = Player.create(username: 'Zoe')
 y = Player.create(username: 'DainBrownlow')

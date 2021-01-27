@@ -141,9 +141,13 @@ function playerHomePage(player){
     
     //score logic
     let scores = []
-    let scoreHelp = player.games.forEach(game => scores.push(parseInt(game.score)))
+    let scoreHelp = player.games.forEach(game => {
+        if(game.score != null){
+            scores.push(parseInt(game.score))
+        }
+    })
     let maxScore = Math.max(...scores)
-
+    // scores.push(parseInt(game.score))
     // create elements
     let container = document.createElement('div')
     let welcomeDiv = document.createElement('div')
@@ -324,7 +328,7 @@ function masterRoll(){
     setTimeout(function(){
         console.log(slotNums)
         updateScore(slotNums);
-    },6450);
+    },6700);
 
 }
 
@@ -338,8 +342,9 @@ function rollDiv1(){
         return
     }
     value.textContent = values[x]
-    setTimeout(rollDiv1, time)
     time += 10
+    setTimeout(rollDiv1, time)
+    //time += 10
     if(x+1 == 9){
         x = 0
     }else{
@@ -355,8 +360,9 @@ function rollDiv2(){
         return
     }
     value.textContent = values[x2]
-    setTimeout(rollDiv2, time2)
     time2 += 10
+    setTimeout(rollDiv2, time2)
+    //time2 += 10
     if(x2+1 == 9){
         x2 = 0
     }else{
@@ -372,8 +378,9 @@ function rollDiv3(){
         return
     }
     value.textContent = values[x3]
-    setTimeout(rollDiv3, time3)
     time3 += 10
+    setTimeout(rollDiv3, time3)
+    //time3 += 10
     if(x3+1 == 9){
         x3 = 0
     }else{
