@@ -5,6 +5,7 @@ const body = document.querySelector('body')
 const errors = document.getElementById('errors')
 let allPlayers = []
 let currentGame;
+let currentPlayer;
 let gameScore = 0
 
 let slotNums = []
@@ -48,6 +49,7 @@ function createPlayer(player){
             errorP.textContent = data['error']
             errors.appendChild(errorP)
         }else{
+            allPlayers.push(data)
             playerHomePage(data)
         }
     })
@@ -91,7 +93,10 @@ function createGame(player){
         body: JSON.stringify({player_id: player.id})
     })
     .then(r => r.json())
-    .then(game => currentGame = game)
+    .then(game => {
+        currentGame = game
+        currentPlayer = player
+    })
     .catch(error => console.log(error.message))
 }
 
@@ -230,7 +235,7 @@ function registerScreen(){
     body.appendChild(form)
 }
 
-function gameOver(){
+function gameOver(arr){
     body.innerHTML = ''
     let test = document.createElement('h1')
     test.textContent = 'GAME OVER'
