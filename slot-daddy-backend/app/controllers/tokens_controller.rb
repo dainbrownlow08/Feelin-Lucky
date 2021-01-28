@@ -7,7 +7,8 @@ class TokensController < ApplicationController
     end
 
     def destroy
-        byebug
+        Token.find(params[:id]).destroy
+        render json: {message: 'token deleted'}
     end
     
 end

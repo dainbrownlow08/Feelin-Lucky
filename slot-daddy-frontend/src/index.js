@@ -120,8 +120,19 @@ function endGame(game){
 function getHighScores(){
     fetch(gamesURL)
     .then(r => r.json())
-    .then(console.log)
-    //.then(arr => gameOver(arr))
+    .then(arr => gameOver(arr))
+}
+
+function depleteToken(token){
+    fetch(tokensURL+`/${token.id}`,{
+        method: 'DELETE'
+    })
+    .then(r => r.json())
+    .then(() => {
+        let t = document.getElementById('game-token-count')
+        t.textContent = currentPlayer.tokens.length
+        console.log(currentPlayer.tokens.length)
+    })
 }
 
 
@@ -166,7 +177,7 @@ function onPageLoad(){
 
 function playerHomePage(player){
     body.innerHTML = ''
-    console.log(player.tokens.length)
+    //console.log(player.tokens.length)
     
     //score logic
     let maxScore = 0
@@ -340,10 +351,11 @@ function newGame(player){
     body.innerHTML = ''
     //document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/casino.jpg)'
     
-    console.log(body)
+    //console.log(body)
     // create elements
     gameWindow = document.createElement('div')
     playerScoreDiv = document.createElement('div')
+    playerTokens = document.createElement('div')
     rollBtnDiv = document.createElement('div')
     
     endBtnDiv = document.createElement('div')
@@ -386,6 +398,8 @@ function newGame(player){
     slotValue3.textContent = 7
 
     username.textContent = `< ${player.username} >`
+    playerTokens.textContent = player.tokens.length
+    playerTokens.id = 'game-token-count'
 
     score.id = 'score'
     score.textContent = 0
@@ -406,7 +420,7 @@ function newGame(player){
     
     rollBtnDiv.appendChild(rollBtn)
     endBtnDiv.appendChild(endBtn)
-    slotMachine.append(slotMachine1,slotMachine2,slotMachine3)
+    slotMachine.append(playerTokens,slotMachine1,slotMachine2,slotMachine3)
 
 
     // append elements
@@ -416,15 +430,24 @@ function newGame(player){
 }
 
 function masterRoll(){
-    rollDiv1()
-    rollDiv2()
-    rollDiv3()
-    setTimeout(function(){
-        console.log(slotNums)
-        updateScore(slotNums);
-    },6900);
-
+    if(currentPlayer.tokens.length == 0){
+        console.log('NOCOIN')
+        endGame(currentGame)
+    }else{
+        let t = currentPlayer.tokens.shift()
+        console.log(t)
+        depleteToken(t)
+        rollDiv1()
+        rollDiv2()
+        rollDiv3()
+        setTimeout(function(){
+            console.log(slotNums)
+            updateScore(slotNums);
+        },6900);
+    }
+    // console.log(currentPlayer)
 }
+
 
 
 
