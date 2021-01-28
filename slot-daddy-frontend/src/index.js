@@ -415,6 +415,7 @@ function newGame(player){
     score.id = 'score'
     score.textContent = 0
 
+    rollBtn.id = "roll-btn"
     rollBtn.textContent = 'ROLL'
     endBtn.textContent = 'END GAME'
 
@@ -458,6 +459,7 @@ function masterRoll(){
         rollDiv1()
         rollDiv2()
         rollDiv3()
+        rollBtnTimer()
         setTimeout(function(){
             console.log(slotNums)
             updateScore(slotNums);
@@ -465,7 +467,13 @@ function masterRoll(){
     }
 }
 
-
+function rollBtnTimer(){
+    let rollBtn = document.getElementById('roll-btn')
+    rollBtn.removeEventListener('click',masterRoll)
+    setTimeout(function(){
+        rollBtn.addEventListener('click',masterRoll)
+    },7100)
+}
 
 
 
