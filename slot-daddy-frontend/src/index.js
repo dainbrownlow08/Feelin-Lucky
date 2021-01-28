@@ -19,15 +19,16 @@ let time2 = 20
 
 let x3 = getRandomInt(9)
 let time3 = 20
-//this which waits until done to move on
+
 getAllPlayers()
 onPageLoad()
-//get all players
+
 
 // DATA
 function getAllPlayers(){
     fetch(playersURL)
     .then(r => r.json())
+    // .then(console.log)
     .then(data => allPlayers = data)
 }
 
@@ -79,7 +80,8 @@ function addToken(player){
         body: JSON.stringify({player_id: player.id})
     })
     .then(r => r.json())
-    .then(count => updateTokenBalance(count))
+    // .then(console.log)
+    .then(bigtoken => updateTokenBalance(bigtoken))
     .catch(error => console.log(error.message))
 }
 
@@ -94,9 +96,9 @@ function createGame(player){
     })
     .then(r => r.json())
     .then(game => {
-        currentGame = game
-        currentPlayer = player
-    })
+      currentGame = game
+      currentPlayer = player
+      })
     .catch(error => console.log(error.message))
 }
 
@@ -117,7 +119,8 @@ function endGame(game){
 function getHighScores(){
     fetch(gamesURL)
     .then(r => r.json())
-    .then(arr => gameOver(arr))
+    .then(console.log)
+    //.then(arr => gameOver(arr))
 }
 
 
@@ -130,7 +133,9 @@ function onPageLoad(){
     let registerButton = document.createElement('button')
 
     loginButton.textContent = "Login"
+    loginButton.id = 'login-button'
     registerButton.textContent = "Register"
+    registerButton.id = 'register-button'
 
     loginButton.addEventListener('click',loginScreen)
     registerButton.addEventListener('click',registerScreen)
@@ -140,6 +145,7 @@ function onPageLoad(){
 
 function playerHomePage(player){
     body.innerHTML = ''
+    console.log(player.tokens.length)
     
     //score logic
     let maxScore = 0
@@ -237,15 +243,71 @@ function registerScreen(){
 
 function gameOver(arr){
     body.innerHTML = ''
-    let test = document.createElement('h1')
-    test.textContent = 'GAME OVER'
-    body.appendChild(test)
+
+    //sort array
+    arr = arr.sort((a, b) => (a.score > b.score) ? -1 : 1)
+
+    //create elements
+    let gameOverDiv = document.createElement('div')
+    let scoreDiv = document.createElement('div')
+    let usernameDiv = document.createElement('div')
+    let leaderBoardDiv = document.createElement('div')
+    let playAgainDiv = document.createElement('div')
+    let score = document.createElement('h1')
+    let userName = document.createElement('h4')
+    let winnersBanner = document.createElement('h1')
+    let winnersOl = document.createElement('ol')
+    let youSuck = document.createElement('h2')
+    let playAgainBtn = document.createElement('button')
+
+    //modify elements
+    score.textContent = 'GAME OVER'
+    userName.textContent = currentPlayer.username
+    winnersBanner.textContent = 'WINNERS'
+    youSuck.textContent = 'YOU SUCK!'
+    youSuck.id = 'you-suck'
+    playAgainBtn.textContent = 'PLAY AGAIN?'
+    playAgainBtn.id = 'play-again-button'
+
+    playAgainBtn.addEventListener('click', () => playerHomePage(currentPlayer))
+
+    //playerSpan logic
+    function highScorePlayer(game){
+      return allPlayers.find(player => player.id == game.player_id)
+    }
+
+    //populate scoreboard
+    arr.forEach(game => {
+      let li = document.createElement('li')
+      let scoreSpan = document.createElement('span')
+      let playerSpan = document.createElement('span')
+      scoreSpan.id = 'score-span'
+      playerSpan.id = 'player-span'
+      scoreSpan.textContent = game.score
+      playerSpan.textContent = highScorePlayer(game).username
+      li.append(scoreSpan, playerSpan)
+      winnersOl.appendChild(li)
+    })
+
+    //append elements
+    scoreDiv.appendChild(score)
+    usernameDiv.appendChild(userName)
+    leaderBoardDiv.append(winnersBanner, winnersOl)
+    playAgainDiv.append(youSuck, playAgainBtn)
+    gameOverDiv.append(scoreDiv, usernameDiv, leaderBoardDiv, playAgainDiv)
+    body.appendChild(gameOverDiv)
 }
 
-function updateTokenBalance(count){
+function updateTokenBalance(bigtoken){
     let tokenSpan = document.getElementById('token-span')
     tokenSpan.innerHTML = ''
-    tokenSpan.textContent = count
+    tokenSpan.textContent = bigtoken['token_count']
+  
+    allPlayers.forEach(player => {
+      if (player.id == bigtoken['token']['player_id']){
+        player.tokens.push(bigtoken["token"])
+      }
+    })
 }
 
 // GAME
@@ -253,14 +315,17 @@ function updateTokenBalance(count){
 function newGame(player){
     createGame(player)
     body.innerHTML = ''
-
+    //document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/casino.jpg)'
+    
+    console.log(body)
     // create elements
     gameWindow = document.createElement('div')
     playerScoreDiv = document.createElement('div')
     rollBtnDiv = document.createElement('div')
     
     endBtnDiv = document.createElement('div')
-    rulesDiv = document.createElement('div')
+    rulesDiv1 = document.createElement('div')
+    rulesDiv2 = document.createElement('div')
 
     username = document.createElement('h2')
     score = document.createElement('h1')
@@ -305,7 +370,9 @@ function newGame(player){
     rollBtn.textContent = 'ROLL'
     endBtn.textContent = 'END GAME'
 
-    rulesDiv.textContent = "HEY there should be rules here.!"
+    rulesDiv1.textContent = "HEY there should be rules here.!"
+    rulesDiv2.textContent = "HEY there should ALSO be rules here.!"
+
 
     rollBtn.addEventListener('click', masterRoll)
     endBtn.addEventListener('click',() => endGame(currentGame))
@@ -321,7 +388,7 @@ function newGame(player){
 
     // append elements
     playerScoreDiv.append(username,score)
-    gameWindow.append(playerScoreDiv,rollBtnDiv,slotMachine,endBtnDiv,rulesDiv)
+    gameWindow.append(playerScoreDiv,rulesDiv1,rulesDiv2,rollBtnDiv,slotMachine,endBtnDiv)
     body.appendChild(gameWindow)
 }
 
@@ -332,7 +399,7 @@ function masterRoll(){
     setTimeout(function(){
         console.log(slotNums)
         updateScore(slotNums);
-    },6700);
+    },6900);
 
 }
 
