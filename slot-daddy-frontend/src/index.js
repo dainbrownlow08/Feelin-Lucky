@@ -3,7 +3,7 @@ const tokensURL = 'http://localhost:3000/tokens'
 const gamesURL = 'http://localhost:3000/games'
 const logoURL = "../slot-daddy-frontend/assets/SlotDaddyLogo.png"
 const body = document.querySelector('body')
-const errors = document.getElementById('errors')
+//const errors = document.getElementById('errors')
 let allPlayers = []
 let currentGame;
 let currentPlayer;
@@ -46,10 +46,16 @@ function createPlayer(player){
     .then(r => r.json())
     .then(data => {
         if (data['error']){
-            errors.innerHTML = ''
-            let errorP = document.createElement('p')
-            errorP.textContent = data['error']
-            errors.appendChild(errorP)
+            let errorP = document.createElement('div')
+            errorP.id = 'errors'
+            let form = document.querySelector('form')
+            if(!!document.getElementById('errors')){
+                return
+            }else{
+                errorP.textContent = data['error']
+                body.appendChild(errorP)
+                form.reset()
+            }
         }else{
             allPlayers.push(data)
             playerHomePage(data)
@@ -63,10 +69,16 @@ function findPlayer(player){
         p = allPlayers.find(p => p.username == player.username)
         playerHomePage(p)
     }else{
-        errors.innerHTML = ''
-        let errorP = document.createElement('p')
-        errorP.textContent = 'Invalid Username.'
-        errors.appendChild(errorP)
+        let errorP = document.createElement('div')
+        errorP.id = 'errors'
+        let form = document.querySelector('form')
+        if(!!document.getElementById('errors')){
+            return
+        }else{
+            errorP.textContent = 'Invalid Username.'
+            body.appendChild(errorP)
+            form.reset()
+        }
     }
     
 }
@@ -280,7 +292,7 @@ function gameOver(arr){
 
     //sort array
     arr = arr.sort((a, b) => (a.score > b.score) ? -1 : 1)
-
+    arr = arr.slice(0,10)
     //create elements
     let gameOverDiv = document.createElement('div')
     let scoreDiv = document.createElement('div')
@@ -309,7 +321,7 @@ function gameOver(arr){
     function highScorePlayer(game){
       return allPlayers.find(player => player.id == game.player_id)
     }
-
+    
     //populate scoreboard
     arr.forEach(game => {
       let li = document.createElement('li')
@@ -351,7 +363,6 @@ function newGame(player){
     body.innerHTML = ''
     //document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/casino.jpg)'
     
-    //console.log(body)
     // create elements
     gameWindow = document.createElement('div')
     playerScoreDiv = document.createElement('div')
@@ -430,10 +441,17 @@ function newGame(player){
 }
 
 function masterRoll(){
+    // call a function that takes event listener away from roll btn, and starts a 7 sec timer to add it back
     if(currentPlayer.tokens.length == 0){
         console.log('NOCOIN')
         endGame(currentGame)
     }else{
+        if(currentPlayer.tokens.length == 2){
+            let errors = document.createElement('div')
+            errors.id = 'errors'
+            errors.textContent = 'LAST CHANCE SUCKA! THIS IS YOUR FINAL ROLL'
+            body.appendChild(errors)
+        }
         let t = currentPlayer.tokens.shift()
         console.log(t)
         depleteToken(t)
@@ -445,8 +463,9 @@ function masterRoll(){
             updateScore(slotNums);
         },6900);
     }
-    // console.log(currentPlayer)
 }
+
+
 
 
 
