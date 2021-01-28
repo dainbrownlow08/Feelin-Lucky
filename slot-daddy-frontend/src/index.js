@@ -1,6 +1,7 @@
 const playersURL = 'http://localhost:3000/players'
 const tokensURL = 'http://localhost:3000/tokens'
 const gamesURL = 'http://localhost:3000/games'
+const logoURL = "slot-daddy-frontend/assets/SlotDaddyLogo.png"
 const body = document.querySelector('body')
 const errors = document.getElementById('errors')
 let allPlayers = []
@@ -127,10 +128,27 @@ function getHighScores(){
 
 //DOM
 
+function bigFlashyLogo(){
+  let logoDiv = document.createElement('div')
+  let logoBorder = document.createElement('div')
+  let logo = document.createElement('img')
+
+  logoBorder.id = "flashing-logo-border"
+  logo.id = "logo-img"
+  logo.src = logoURL
+  logoDiv.id = 'logo-div'
+
+  logoBorder.appendChild(logo)
+  logoDiv.appendChild(logoBorder)
+  body.appendChild(logoDiv)
+}
+
 function onPageLoad(){
+    let buttonDiv = document.createElement('div')
     let loginButton = document.createElement('button')
     let registerButton = document.createElement('button')
 
+    buttonDiv.id = "login-register-div"
     loginButton.textContent = "Login"
     loginButton.id = 'login-button'
     registerButton.textContent = "Register"
@@ -139,7 +157,10 @@ function onPageLoad(){
     loginButton.addEventListener('click',loginScreen)
     registerButton.addEventListener('click',registerScreen)
 
-    body.append(loginButton,registerButton)
+    //LOGO HERE
+    bigFlashyLogo()
+    buttonDiv.append(loginButton,registerButton)
+    body.appendChild(buttonDiv)
 }
 
 function playerHomePage(player){
@@ -203,7 +224,6 @@ function playerHomePage(player){
 //loginscreen
 function loginScreen(){
     body.innerHTML = ''
-    // add big flashy title
     let form = document.createElement('form')
     let input = document.createElement('input')
     let loginButton = document.createElement('button')
@@ -217,13 +237,14 @@ function loginScreen(){
     loginButton.addEventListener('click', handleLogin)
 
     form.append(backButton,input,loginButton)
+    //LOGO HERE
+    bigFlashyLogo()
     body.appendChild(form)
 
 }
 //register screen
 function registerScreen(){
     body.innerHTML = ''
-    // add big flashy title
     let form = document.createElement('form')
     let input = document.createElement('input')
     let registerButton = document.createElement('button')
@@ -237,6 +258,8 @@ function registerScreen(){
     registerButton.addEventListener('click', handleNewPlayer)
     
     form.append(backButton,input,registerButton)
+    //LOGO HERE
+    bigFlashyLogo()
     body.appendChild(form)
 }
 
