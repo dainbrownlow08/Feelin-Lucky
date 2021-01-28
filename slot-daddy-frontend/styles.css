@@ -1,0 +1,93 @@
+div#logo-div {
+  display: flex;
+  justify-content: center;
+}
+
+div#flashing-logo-border {
+  position: absolute;
+  background-color: black;
+  border-radius: 25px;
+  border: 10px solid lightgoldenrodyellow;
+  padding: 20px;
+  height: 200px;
+  width: 500px;
+  animation: border-flicker 2s linear infinite;
+}
+/* 
+logo border flicker (thank u codepen) */
+@keyframes border-flicker {
+  0% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+-moz-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+  }
+  2% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+-moz-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+  }
+  4% {
+    opacity:0.1;
+    -webkit-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+-moz-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+  }
+  
+  8% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+-moz-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+  }
+  70% {
+    opacity:0.7;
+    -webkit-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+-moz-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+  }
+  100% {
+    opacity:1;
+    -webkit-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+-moz-box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
+  }
+}
+
+img#logo-img {
+  max-width: 120%;
+  max-height: 120%;
+  display: block;
+}
+
+/* not working */
+.login-register-div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  line-height: 30px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+/* kinda working? */
+#login-button {
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25% 0 0 -25%;
+}
+#register-button {
+  width: 100px;
+  height: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -25% 0 0 -40%;
+}
