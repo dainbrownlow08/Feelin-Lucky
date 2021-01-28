@@ -55,10 +55,9 @@ box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
   }
 }
 
-/* unclear */
 img#logo-img {
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 120%;
+  max-height: 120%;
   display: block;
 }
 
