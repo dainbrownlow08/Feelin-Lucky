@@ -153,6 +153,8 @@ function depleteToken(token){
 //DOM
 
 function bigFlashyLogo(){
+  document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/DaddySlots.jpg)'
+  document.body.style.backgroundSize = '1450px 800px'
   let logoDiv = document.createElement('div')
   let logoBorder = document.createElement('div')
   let logo = document.createElement('img')
@@ -167,6 +169,7 @@ function bigFlashyLogo(){
   body.appendChild(logoDiv)
 }
 
+
 function onPageLoad(){
     let buttonDiv = document.createElement('div')
     let loginButton = document.createElement('button')
@@ -174,8 +177,10 @@ function onPageLoad(){
 
     buttonDiv.id = "login-register-div"
     loginButton.textContent = "Login"
+    loginButton.className = 'btn btn-outline-light'
     loginButton.id = 'login-button'
     registerButton.textContent = "Register"
+    registerButton.className = 'btn btn-outline-light'
     registerButton.id = 'register-button'
 
     loginButton.addEventListener('click',loginScreen)
