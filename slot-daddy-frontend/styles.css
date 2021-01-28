@@ -57,7 +57,7 @@ logo border flicker (thank u codepen) */
 
 img#logo-img {
   justify-content: center;
-  max-width: 200%;
+  max-width: 150%;
   max-height: 112%;
   display: flex;
 }
@@ -92,3 +92,5 @@ img#logo-img {
   left: 50%;
   margin: -25% 0 0 -40%;
 } */
+
+/* Game window formatting */

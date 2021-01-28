@@ -375,9 +375,8 @@ function newGame(player){
     rollBtnDiv = document.createElement('div')
     
     endBtnDiv = document.createElement('div')
-    rulesDiv1 = document.createElement('div')
-    rulesDiv2 = document.createElement('div')
-
+    rulesDiv = document.createElement('div')
+   
     username = document.createElement('h2')
     score = document.createElement('h1')
     rollBtn = document.createElement('button')
@@ -424,9 +423,7 @@ function newGame(player){
     rollBtn.textContent = 'ROLL'
     endBtn.textContent = 'END GAME'
 
-    rulesDiv1.textContent = "HEY there should be rules here.!"
-    rulesDiv2.textContent = "HEY there should ALSO be rules here.!"
-
+    rulesDiv.textContent = "HEY there should be rules here.!"
 
     rollBtn.addEventListener('click', masterRoll)
     endBtn.addEventListener('click',() => endGame(currentGame))
@@ -437,12 +434,11 @@ function newGame(player){
     
     rollBtnDiv.appendChild(rollBtn)
     endBtnDiv.appendChild(endBtn)
-    slotMachine.append(playerTokens,slotMachine1,slotMachine2,slotMachine3)
 
-
-    // append elements
-    playerScoreDiv.append(username,score)
-    gameWindow.append(playerScoreDiv,rulesDiv1,rulesDiv2,rollBtnDiv,slotMachine,endBtnDiv)
+    // append parent elements
+    playerScoreDiv.append(username,score,playerTokens)
+    slotMachine.append(slotMachine1,slotMachine2,slotMachine3)
+    gameWindow.append(playerScoreDiv,slotMachine,rollBtnDiv,rulesDiv,endBtnDiv)
     body.appendChild(gameWindow)
 }
 
