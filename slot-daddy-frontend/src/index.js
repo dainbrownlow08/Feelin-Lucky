@@ -3,7 +3,6 @@ const tokensURL = 'http://localhost:3000/tokens'
 const gamesURL = 'http://localhost:3000/games'
 const logoURL = "../slot-daddy-frontend/assets/SlotDaddyLogo.png"
 const body = document.querySelector('body')
-//const errors = document.getElementById('errors')
 let allPlayers = []
 let currentGame;
 let currentPlayer;
@@ -174,15 +173,11 @@ function onPageLoad(){
     let buttonDiv = document.createElement('div')
     let loginButton = document.createElement('button')
     let registerButton = document.createElement('button')
-    //leftButtonCol
-    //rightButtonCol
     buttonCol = document.createElement('div')
-    // let rightButtonCol = document.createElement('div')
 
     buttonDiv.id = "login-register-div"
     buttonDiv.className = "row h-100 justify-content-center align-items-center"
     buttonCol.className = 'col-sm-12 text-center gap-3'
-    // rightButtonCol.className = 'col-sm'
     loginButton.textContent = "Login"
     loginButton.style = "margin-right:90px;"
     loginButton.className = 'btn btn-outline-light pull-right'
@@ -197,7 +192,6 @@ function onPageLoad(){
     //LOGO HERE
     bigFlashyLogo()
     buttonCol.append(loginButton,registerButton)
-    // rightButtonCol.appendChild(registerButton)
     buttonDiv.append(buttonCol)
     body.appendChild(buttonDiv)
 }
@@ -266,10 +260,7 @@ function playerHomePage(player){
 
     highScore.style = 'color:white; text-align: left;'
     tokenCount.style = 'color:white; text-align: left;'
-    //highScore.className = 'row'
-    //tokenCount.classname = 'row'
 
-    //highScoreSpan.style = 'color:white; text-align: right;'
     tokenSpan.className = 'neon'
     tokenSpan.style = 'color:white; text-align: right; font-size:2em;'
     highScoreSpan.className = 'neon'
@@ -280,10 +271,6 @@ function playerHomePage(player){
     
     // append elements
     welcomeDiv.append(greeting)
-    //tokenCount.appendChild(tokenSpan)
-    //tokenDiv.appendChild(tokenCount)
-    //highScore.appendChild(highScoreSpan)
-    //highScoreDiv.appendChild(highScore)
     hsabCol1.append(highScore,tokenCount)
     hsabCol2.append(highScoreSpan,tokenSpan)
     highScoreAndBalance.append(hsabCol1,hsabCol2)
@@ -483,7 +470,6 @@ function newGame(player){
 
     let rules1 = document.createElement('p')
     let rules2 = document.createElement('p')
-    // let rules3 = document.createElement('p')
     let rules4 = document.createElement('p')
     let rules5 = document.createElement('p')
 
@@ -529,10 +515,8 @@ function newGame(player){
     scoreRow.id = "score-token-parent"
     scoreRow.className = "slot-machine-container"
     scoreDiv.id = "score-div"
-    //scoreDiv.className = "slot"
     score.id = 'score'
     score.textContent = 0
-    //scoreDiv.style = "left-margin:0px;"
 
     rollBtn.id = "roll-btn"
     rollBtn.textContent = 'ROLL'
@@ -606,8 +590,6 @@ function rollBtnTimer(){
         rollBtn.addEventListener('click',masterRoll)
     },7100)
 }
-
-
 
 
 function rollDiv1(){
@@ -756,9 +738,3 @@ function handleLogin(e){
     }
     findPlayer(player)
 }
-
-
-
-// SLOT LOGIC
-
-
