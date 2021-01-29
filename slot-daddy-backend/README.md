@@ -21,7 +21,7 @@ To install Food Connect, follow these steps:
 2. Create a directory where you would like to store the file.
 3. Navigate into that directory and use the command: `git clone <project-SSH>`
 
-## Using Food Connect
+## Using
 
 To use Daddy's, follow these steps:
 After forking, in your terminal type the following commands:
