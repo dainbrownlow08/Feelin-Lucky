@@ -514,9 +514,10 @@ function newGame(player){
     scoreRow.id = "score-token-parent"
     scoreRow.className = "slot-machine-container"
     scoreDiv.id = "score-div"
-    scoreDiv.className = "slot"
+    //scoreDiv.className = "slot"
     score.id = 'score'
     score.textContent = 0
+    //scoreDiv.style = "left-margin:0px;"
 
     rollBtn.id = "roll-btn"
     rollBtn.textContent = 'ROLL'
