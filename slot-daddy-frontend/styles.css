@@ -1,3 +1,5 @@
+
+/* logo (thank u codepen) */
 div#logo-div {
   display: flex;
   justify-content: center;
@@ -13,8 +15,7 @@ div#flashing-logo-border {
   width: 500px;
   animation: border-flicker 2s linear infinite;
 }
-/* 
-logo border flicker (thank u codepen) */
+
 @keyframes border-flicker {
   0% {
     opacity: 0.1;
@@ -56,41 +57,98 @@ logo border flicker (thank u codepen) */
 }
 
 img#logo-img {
+  display: flex;
   justify-content: center;
-  max-width: 150%;
-  max-height: 112%;
+  max-width: 120%;
+  max-height: 114%;
+  display: block;
+}
+
+/* Game window formatting */
+#game-window {
+  width: 507px;
+  height: 936px;
+  background-image: url("../slot-daddy-frontend/assets/slotmachine_with_logo.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+ /* slooots */
+#slot-machine-parent {
+  padding-top: 100px;
+}
+
+.slot-machine-container {
   display: flex;
 }
 
-/* not working */
-.login-register-div {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  padding: 20px;
-  line-height: 30px;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
+.slot {
+  flex: 1;
+  text-align: center;
 }
 
-/* kinda working? */
-#login-button {
-  /* width: 100px;
-  height: 50px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -25% 0 0 -25%; */
+.slot:first-child {
+  margin-left: 110px;
 }
-/* #register-button {
+
+.slot:last-child {
+  margin-right: 110px;
+}
+
+.value {
+  padding-top: 25px;
+}
+
+/* player score div */
+#player-score-div {
+  padding-top: 200px;
+}
+
+#game-token-count {
   width: 100px;
-  height: 50px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -25% 0 0 -40%;
-} */
+  background-image: url("../slot-daddy-frontend/assets/gold_coin_bg_removed.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+  color: black;
+}
 
-/* Game window formatting */
+#tokes {
+  padding-top: 15px;
+}
+
+#score {
+  --interval: 1s;
+  display: block;
+  font-family: Kumar One Outline;
+  font-weight: 400;
+  color: lightpink;
+  text-shadow: 
+    0 0 10px var(pink),
+    0 0 20px var(orangered),
+    0 0 40px var(red),
+    0 0 80px var(magenta);
+  will-change: filter, color;
+  filter: saturate(60%);
+  animation: flicker steps(100) var(--interval) 1s infinite;
+}
+
+@keyframes flicker {
+  50% {
+    color: white;
+    filter: saturate(200%) hue-rotate(20deg);
+  }
+}
+
+/* roll button div */
+.button-div {
+  padding-top: 150px;
+}
+/* rules div */
+.rules {
+  padding-top: 30px;
+}
