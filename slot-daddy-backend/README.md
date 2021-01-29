@@ -1,6 +1,6 @@
 # README
 
-🎲 🔥DADDY'S LIL SLOTS🔥 🎲
+## 🎲 🎲 🔥DADDY'S LIL SLOTS🔥 🎲 🎲 
 
 ## Prerequisites
 
