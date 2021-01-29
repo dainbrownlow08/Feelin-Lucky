@@ -143,6 +143,14 @@ img#logo-img {
   padding-top: 25px;
 }
 
+.top {
+  padding-right: 30px;
+}
+
+.slight-move-right {
+  margin-right: 29px;
+}
+
 /* player score div */
 #player-score-div {
   padding-top: 200px;

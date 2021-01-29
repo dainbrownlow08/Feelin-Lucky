@@ -259,10 +259,10 @@ function playerHomePage(player){
     container.style = 'padding-top:250px;'
     buttonDiv.style = 'padding-top:30px;'
 
-    newGameButton.className = "btn btn-success"
+    newGameButton.className = "btn btn-primary"
     buyTokenButton.className = "btn btn-warning"
-    newGameButton.style = 'margin-right:90px; height:160px; width:130px;'
-    buyTokenButton.style = 'height:160px; width:130px;'
+    newGameButton.style = 'margin-right:90px; height:60px; width:130px;'
+    buyTokenButton.style = 'height:60px; width:130px;'
 
     highScore.style = 'color:white; text-align: left;'
     tokenCount.style = 'color:white; text-align: left;'
@@ -365,7 +365,8 @@ function registerScreen(){
 
 function gameOver(arr){
     body.innerHTML = ''
-
+    document.body.style.backgroundImage = ''
+    document.body.style.backgroundColor = 'black'
     //sort array
     arr = arr.sort((a, b) => (a.score > b.score) ? -1 : 1)
     arr = arr.slice(0,10)
@@ -386,10 +387,18 @@ function gameOver(arr){
     score.textContent = 'GAME OVER'
     userName.textContent = currentPlayer.username
     winnersBanner.textContent = 'WINNERS'
+    winnersBanner.className = 'neon'
     youSuck.textContent = 'YOU SUCK!'
     youSuck.id = 'you-suck'
     playAgainBtn.textContent = 'PLAY AGAIN?'
     playAgainBtn.id = 'play-again-button'
+
+    gameOverDiv.className = 'text-center'
+    score.className = 'neon'
+    youSuck.className = 'neon'
+    userName.className = 'neon'
+    userName.style = 'font-size:2em;'
+    playAgainBtn.className = "btn btn-outline-info"
 
     playAgainBtn.addEventListener('click', () => playerHomePage(currentPlayer))
 
@@ -400,15 +409,21 @@ function gameOver(arr){
     
     //populate scoreboard
     arr.forEach(game => {
-      let li = document.createElement('li')
+      let scoreP = document.createElement('p')
       let scoreSpan = document.createElement('span')
       let playerSpan = document.createElement('span')
       scoreSpan.id = 'score-span'
+      scoreSpan.className = 'top neon'
       playerSpan.id = 'player-span'
+      playerSpan.className = 'slight-move-right neon'
+
+      scoreSpan.style = 'font-size:1em;'
+      playerSpan.style = 'font-size:1em;'
+
       scoreSpan.textContent = game.score
       playerSpan.textContent = highScorePlayer(game).username
-      li.append(scoreSpan, playerSpan)
-      winnersOl.appendChild(li)
+      scoreP.append(scoreSpan, playerSpan)
+      winnersOl.appendChild(scoreP)
     })
 
     //append elements
