@@ -366,7 +366,7 @@ function updateTokenBalance(bigtoken){
 function newGame(player){
     createGame(player)
     body.innerHTML = ''
-    //document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/casino.jpg)'
+    document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/casino.jpg)'
     
     // create elements
     let gameWindow = document.createElement('div')
@@ -395,7 +395,11 @@ function newGame(player){
     let rollBtn = document.createElement('button')
     let endBtn = document.createElement('button')
 
-    let rules = document.createElement('p')
+    let rules1 = document.createElement('p')
+    let rules2 = document.createElement('p')
+    // let rules3 = document.createElement('p')
+    let rules4 = document.createElement('p')
+    let rules5 = document.createElement('p')
 
     // attributes
     gameWindow.id = "game-window"
@@ -420,9 +424,10 @@ function newGame(player){
     playerScoreDiv.className = 'row text-center'
     playerScoreDiv.id = 'player-score-div'
     slotMachine.className = 'row'
-    rollBtnDiv.className = 'row button-div'
+    rollBtnDiv.className = 'row button-div text-center'
     rulesDiv.className = 'row text-center rules'
-    endBtnDiv.className = 'row button-div'
+    endBtnDiv.className = 'row text-center'
+    endBtnDiv.id = 'end-button'
 
     slotValue1.textContent = 7
     slotValue2.textContent = 7
@@ -444,10 +449,17 @@ function newGame(player){
 
     rollBtn.id = "roll-btn"
     rollBtn.textContent = 'ROLL'
+    rollBtn.className = "btn btn-danger game-button"
+    rollBtn.style = 'width:130px;'
     endBtn.textContent = 'END GAME'
+    endBtn.className = "btn btn-outline-danger game-button"
+    endBtn.style = 'width:130px;'
 
     rulesDiv.style = "color:white;"
-    rules.textContent = "HEY there should be rules here.!"
+    rules1.textContent = "ANY two of a kind = 250"
+    rules2.textContent = "THREE of a kind = n x 100"
+    rules4.textContent = "THREE 7's = 5000"
+    rules5.textContent = "THREE 1's = YOUR SCORE IS 0, LOL NERD"
 
     rollBtn.addEventListener('click', masterRoll)
     endBtn.addEventListener('click',() => endGame(currentGame))
@@ -460,7 +472,7 @@ function newGame(player){
     slotMachine2.appendChild(slotValue2)
     slotMachine3.appendChild(slotValue3)
 
-    rulesDiv.appendChild(rules)
+    rulesDiv.append(rules1,rules2,rules4,rules5)
     
     rollBtnDiv.appendChild(rollBtn)
     endBtnDiv.appendChild(endBtn)
@@ -473,6 +485,7 @@ function newGame(player){
     body.appendChild(gameWindow)
 }
 
+
 function masterRoll(){
     // call a function that takes event listener away from roll btn, and starts a 7 sec timer to add it back
     if(currentPlayer.tokens.length == 0){
@@ -482,7 +495,7 @@ function masterRoll(){
         if(currentPlayer.tokens.length == 2){
             let errors = document.createElement('div')
             errors.id = 'errors'
-            errors.textContent = 'LAST CHANCE SUCKA! THIS IS YOUR FINAL ROLL'
+            errors.textContent = "LAST CHANCE SUCKA! YOU'RE BROKE"
             body.appendChild(errors)
         }
         let t = currentPlayer.tokens.shift()
@@ -618,7 +631,7 @@ function updateScore(arr){
             newScore = 900
         }
     }
-    score.textContent = (currentScore + newScore).toString()
+    score.textContent = currentScore + newScore
     gameScore = currentScore + newScore
 }
 

@@ -117,15 +117,15 @@ img#logo-img {
   color: black;
 }
 
-#tokes {
+/* #tokes {
   padding-top: 15px;
-}
+} */
 
 #score {
   --interval: 1s;
   display: block;
-  font-family: Kumar One Outline;
-  font-weight: 400;
+  font-family: Kumar One;
+  font-weight: 600;
   color: lightpink;
   text-shadow: 
     0 0 10px var(pink),
@@ -146,9 +146,17 @@ img#logo-img {
 
 /* roll button div */
 .button-div {
-  padding-top: 150px;
+  padding-top: 148px;
 }
 /* rules div */
 .rules {
   padding-top: 30px;
+}
+
+.game-button {
+  margin-left: 190px;
+}
+
+#end-button {
+  padding-top: 25px;
 }
