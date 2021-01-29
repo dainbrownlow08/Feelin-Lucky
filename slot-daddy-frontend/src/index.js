@@ -174,10 +174,18 @@ function onPageLoad(){
     let buttonDiv = document.createElement('div')
     let loginButton = document.createElement('button')
     let registerButton = document.createElement('button')
+    //leftButtonCol
+    //rightButtonCol
+    buttonCol = document.createElement('div')
+    // let rightButtonCol = document.createElement('div')
 
     buttonDiv.id = "login-register-div"
+    buttonDiv.className = "row h-100 justify-content-center align-items-center"
+    buttonCol.className = 'col-sm-12 text-center gap-3'
+    // rightButtonCol.className = 'col-sm'
     loginButton.textContent = "Login"
-    loginButton.className = 'btn btn-outline-light'
+    loginButton.style = "margin-right:90px;"
+    loginButton.className = 'btn btn-outline-light pull-right'
     loginButton.id = 'login-button'
     registerButton.textContent = "Register"
     registerButton.className = 'btn btn-outline-light'
@@ -188,7 +196,9 @@ function onPageLoad(){
 
     //LOGO HERE
     bigFlashyLogo()
-    buttonDiv.append(loginButton,registerButton)
+    buttonCol.append(loginButton,registerButton)
+    // rightButtonCol.appendChild(registerButton)
+    buttonDiv.append(buttonCol)
     body.appendChild(buttonDiv)
 }
 
@@ -213,39 +223,76 @@ function playerHomePage(player){
     let greeting = document.createElement('h2')
     let tokenDiv = document.createElement('div')
     let tokenCount = document.createElement('h4')
-    let tokenSpan = document.createElement('span')
+    let tokenSpan = document.createElement('h4')
     let highScoreDiv = document.createElement('div')
     let highScore = document.createElement('h4')
-    let highScoreSpan = document.createElement('span')
+    let highScoreSpan = document.createElement('h4')
     let buttonDiv = document.createElement('div')
     let newGameButton = document.createElement('button')
     let buyTokenButton = document.createElement('button')
+
+    let highScoreAndBalance = document.createElement('div')
+    let hsabCol1 = document.createElement('div')
+    let hsabCol2 = document.createElement('div')
+    highScoreAndBalance.className = "row text-center"
+    hsabCol1.className = "col"
+    hsabCol2.className = "col"
+    hsabCol1.style = 'margin-left:500px;'
+    hsabCol2.style = 'margin-right:500px;'
     
     // element attributes
     welcomeDiv.id = 'welcome-div'
     greeting.textContent = `Welcome < ${player.username} >`
+    greeting.className = 'neon'
     tokenCount.textContent = 'Token Balance: '
     tokenSpan.textContent = player.tokens.length
     tokenSpan.id = 'token-span'
-    highScore.textContent = 'Personal High Score: '
+    highScore.textContent = 'High Score: '
     highScoreSpan.textContent = maxScore
     highScoreSpan.id = 'high-score-span'
     newGameButton.textContent = 'START NEW GAME'
     buyTokenButton.textContent = 'BUY TOKEN'
+
+    container.className = 'text-center'
+    welcomeDiv.className = 'text-center'
+    welcomeDiv.style = ' position: fixed;top: 0;left: 0;z-index: 999;width: 100%;height: 100px; padding-top:30px;'
+    container.style = 'padding-top:250px;'
+    buttonDiv.style = 'padding-top:30px;'
+
+    newGameButton.className = "btn btn-success"
+    buyTokenButton.className = "btn btn-warning"
+    newGameButton.style = 'margin-right:90px; height:160px; width:130px;'
+    buyTokenButton.style = 'height:160px; width:130px;'
+
+    highScore.style = 'color:white; text-align: left;'
+    tokenCount.style = 'color:white; text-align: left;'
+    //highScore.className = 'row'
+    //tokenCount.classname = 'row'
+
+    //highScoreSpan.style = 'color:white; text-align: right;'
+    tokenSpan.className = 'neon'
+    tokenSpan.style = 'color:white; text-align: right; font-size:2em;'
+    highScoreSpan.className = 'neon'
+    highScoreSpan.style = 'color:white; text-align: right; font-size:2em;'
+
     buyTokenButton.addEventListener('click',() => addToken(player))
     newGameButton.addEventListener('click',() => newGame(player))
     
     // append elements
     welcomeDiv.append(greeting)
-    tokenCount.appendChild(tokenSpan)
-    tokenDiv.appendChild(tokenCount)
-    highScore.appendChild(highScoreSpan)
-    highScoreDiv.appendChild(highScore)
+    //tokenCount.appendChild(tokenSpan)
+    //tokenDiv.appendChild(tokenCount)
+    //highScore.appendChild(highScoreSpan)
+    //highScoreDiv.appendChild(highScore)
+    hsabCol1.append(highScore,tokenCount)
+    hsabCol2.append(highScoreSpan,tokenSpan)
+    highScoreAndBalance.append(hsabCol1,hsabCol2)
     buttonDiv.append(newGameButton,buyTokenButton)
     
-    container.append(welcomeDiv,tokenDiv,highScoreDiv,buttonDiv)
+    container.append(highScoreAndBalance,buttonDiv)
     
-    body.appendChild(container)
+    bigFlashyLogo()
+    body.append(welcomeDiv,container)
 
 
 }
@@ -253,43 +300,67 @@ function playerHomePage(player){
 //loginscreen
 function loginScreen(){
     body.innerHTML = ''
+    let formDiv = document.createElement('div')
     let form = document.createElement('form')
     let input = document.createElement('input')
     let loginButton = document.createElement('button')
     let backButton = document.createElement('button')
+
+    loginButton.className = 'btn btn-outline-light'
+    backButton.className = 'btn btn-outline-light'
+    
+
     backButton.textContent = 'back'
     input.placeholder = 'username:'
     loginButton.textContent = 'Login'
     input.name = 'username'
+    formDiv.className = 'row text-center'
+    formDiv.style = 'padding-top:285px;'
+    form.className = "form-inline"
+    input.className = "sr-only"
+    input.style = 'margin-right:90px; margin-left:90px;  background-color: lightgoldenrodyellow;'
+    
 
     backButton.addEventListener('click',onPageLoad)
     loginButton.addEventListener('click', handleLogin)
 
     form.append(backButton,input,loginButton)
+    formDiv.appendChild(form)
     //LOGO HERE
     bigFlashyLogo()
-    body.appendChild(form)
+    body.appendChild(formDiv)
 
 }
 //register screen
 function registerScreen(){
     body.innerHTML = ''
+    let formDiv = document.createElement('div')
     let form = document.createElement('form')
     let input = document.createElement('input')
     let registerButton = document.createElement('button')
     let backButton = document.createElement('button')
+
+    registerButton.className = 'btn btn-outline-light'
+    backButton.className = 'btn btn-outline-light'
+
     backButton.textContent = 'back'
     input.placeholder = 'username:'
     registerButton.textContent = 'Register'
     input.name = 'username'
+    formDiv.className = 'row text-center'
+    formDiv.style = 'padding-top:285px;'
+    form.className = "form-inline"
+    input.className = "sr-only"
+    input.style = 'margin-right:90px; margin-left:90px;  background-color: lightgoldenrodyellow;'
 
     backButton.addEventListener('click',onPageLoad)
     registerButton.addEventListener('click', handleNewPlayer)
     
     form.append(backButton,input,registerButton)
+    formDiv.appendChild(form)
     //LOGO HERE
     bigFlashyLogo()
-    body.appendChild(form)
+    body.appendChild(formDiv)
 }
 
 function gameOver(arr){
