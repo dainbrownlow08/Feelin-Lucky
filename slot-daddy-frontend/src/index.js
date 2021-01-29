@@ -437,34 +437,46 @@ function updateTokenBalance(bigtoken){
 function newGame(player){
     createGame(player)
     body.innerHTML = ''
-    //document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/casino.jpg)'
+    document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/casino.jpg)'
     
     // create elements
-    gameWindow = document.createElement('div')
-    playerScoreDiv = document.createElement('div')
-    playerTokens = document.createElement('div')
-    rollBtnDiv = document.createElement('div')
-    
-    endBtnDiv = document.createElement('div')
-    rulesDiv1 = document.createElement('div')
-    rulesDiv2 = document.createElement('div')
+    let gameWindow = document.createElement('div')
+    let playerScoreDiv = document.createElement('div')
+    let scoreRow = document.createElement('div')
+    let scoreDiv = document.createElement('div')
+    let playerTokens = document.createElement('div')
+    let rollBtnDiv = document.createElement('div')
+    let endBtnDiv = document.createElement('div')
+    let rulesDiv = document.createElement('div')
 
-    username = document.createElement('h2')
-    score = document.createElement('h1')
-    rollBtn = document.createElement('button')
-    endBtn = document.createElement('button')
+    let username = document.createElement('h5')
+    let score = document.createElement('h1')
+    let tokes = document.createElement('div')
 
-    slotMachine = document.createElement('div')
+    let slotMachine = document.createElement('div')
 
-    slotMachine1 = document.createElement('div')
-    slotMachine2 = document.createElement('div')
-    slotMachine3 = document.createElement('div')
+    let slotMachine1 = document.createElement('div')
+    let slotMachine2 = document.createElement('div')
+    let slotMachine3 = document.createElement('div')
 
-    slotValue1 = document.createElement('h1')
-    slotValue2 = document.createElement('h1')
-    slotValue3 = document.createElement('h1')
+    let slotValue1 = document.createElement('h1')
+    let slotValue2 = document.createElement('h1')
+    let slotValue3 = document.createElement('h1')
 
+    let rollBtn = document.createElement('button')
+    let endBtn = document.createElement('button')
 
+    let rules1 = document.createElement('p')
+    let rules2 = document.createElement('p')
+    // let rules3 = document.createElement('p')
+    let rules4 = document.createElement('p')
+    let rules5 = document.createElement('p')
+
+    // attributes
+    gameWindow.id = "game-window"
+    gameWindow.className = "container"
+    slotMachine.className = "slot-machine-container"
+    slotMachine.id = "slot-machine-parent"
     slotMachine1.className = 'slot'
     slotMachine1.id = 'slot1'
     slotValue1.className = 'value'
@@ -480,64 +492,92 @@ function newGame(player){
     slotValue3.className = 'value'
     slotValue3.id = 'value3'
 
+    playerScoreDiv.className = 'row text-center'
+    playerScoreDiv.id = 'player-score-div'
+    slotMachine.className = 'row'
+    rollBtnDiv.className = 'row button-div text-center'
+    rulesDiv.className = 'row text-center rules'
+    endBtnDiv.className = 'row text-center'
+    endBtnDiv.id = 'end-button'
+
     slotValue1.textContent = 7
     slotValue2.textContent = 7
     slotValue3.textContent = 7
 
     username.textContent = `< ${player.username} >`
-    playerTokens.textContent = player.tokens.length
+    tokes.textContent = player.tokens.length
+    tokes.id = "tokes"
     playerTokens.id = 'game-token-count'
+    playerTokens.className = 'slot align-middle'
+    playerScoreDiv.style = "color:white;"
 
+    scoreRow.id = "score-token-parent"
+    scoreRow.className = "slot-machine-container"
+    scoreDiv.id = "score-div"
+    scoreDiv.className = "slot"
     score.id = 'score'
     score.textContent = 0
 
     rollBtn.id = "roll-btn"
     rollBtn.textContent = 'ROLL'
+    rollBtn.className = "btn btn-danger game-button"
+    rollBtn.style = 'width:130px;'
     endBtn.textContent = 'END GAME'
+    endBtn.className = "btn btn-outline-danger game-button"
+    endBtn.style = 'width:130px;'
 
-    rulesDiv1.textContent = "HEY there should be rules here.!"
-    rulesDiv2.textContent = "HEY there should ALSO be rules here.!"
-
+    rulesDiv.style = "color:white;"
+    rules1.textContent = "ANY two of a kind = 250"
+    rules2.textContent = "THREE of a kind = n x 100"
+    rules4.textContent = "THREE 7's = 5000"
+    rules5.textContent = "THREE 1's = YOUR SCORE IS 0, LOL NERD"
 
     rollBtn.addEventListener('click', masterRoll)
     endBtn.addEventListener('click',() => endGame(currentGame))
     
+    // append children
+    scoreDiv.appendChild(score)
+    playerTokens.appendChild(tokes)
+
     slotMachine1.appendChild(slotValue1)
     slotMachine2.appendChild(slotValue2)
     slotMachine3.appendChild(slotValue3)
+
+    rulesDiv.append(rules1,rules2,rules4,rules5)
     
     rollBtnDiv.appendChild(rollBtn)
     endBtnDiv.appendChild(endBtn)
-    slotMachine.append(playerTokens,slotMachine1,slotMachine2,slotMachine3)
 
-
-    // append elements
-    playerScoreDiv.append(username,score)
-    gameWindow.append(playerScoreDiv,rulesDiv1,rulesDiv2,rollBtnDiv,slotMachine,endBtnDiv)
+    // append parent elements
+    scoreRow.append(scoreDiv, playerTokens)
+    playerScoreDiv.append(username,scoreRow)
+    slotMachine.append(slotMachine1,slotMachine2,slotMachine3)
+    gameWindow.append(playerScoreDiv,slotMachine,rollBtnDiv,rulesDiv,endBtnDiv)
     body.appendChild(gameWindow)
 }
+
 
 function masterRoll(){
     // call a function that takes event listener away from roll btn, and starts a 7 sec timer to add it back
     if(currentPlayer.tokens.length == 0){
-        console.log('NOCOIN')
+        // console.log('NO COIN')
         endGame(currentGame)
     }else{
         if(currentPlayer.tokens.length == 2){
             let errors = document.createElement('div')
             errors.id = 'errors'
-            errors.textContent = 'LAST CHANCE SUCKA! THIS IS YOUR FINAL ROLL'
+            errors.textContent = "LAST CHANCE SUCKA! YOU'RE BROKE"
             body.appendChild(errors)
         }
         let t = currentPlayer.tokens.shift()
-        console.log(t)
+        // console.log(t)
         depleteToken(t)
         rollDiv1()
         rollDiv2()
         rollDiv3()
         rollBtnTimer()
         setTimeout(function(){
-            console.log(slotNums)
+            // console.log(slotNums)
             updateScore(slotNums);
         },6900);
     }
