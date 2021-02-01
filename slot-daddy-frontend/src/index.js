@@ -153,7 +153,7 @@ function depleteToken(token){
 
 function bigFlashyLogo(){
   document.body.style.backgroundImage = 'url(../slot-daddy-frontend/assets/DaddySlots.jpg)'
-  document.body.style.backgroundSize = '1450px 800px'
+  document.body.style.backgroundSize = 'cover'
   let logoDiv = document.createElement('div')
   let logoBorder = document.createElement('div')
   let logo = document.createElement('img')
@@ -572,9 +572,9 @@ function masterRoll(){
         let t = currentPlayer.tokens.shift()
         // console.log(t)
         depleteToken(t)
-        rollDiv1()
-        rollDiv2()
-        rollDiv3()
+        rollDiv(1,x,time,250)
+        rollDiv(2,x2,time2,300)
+        rollDiv(3,x3,time3,350)
         rollBtnTimer()
         setTimeout(function(){
             // console.log(slotNums)
@@ -592,57 +592,28 @@ function rollBtnTimer(){
 }
 
 
-function rollDiv1(){
-    let value = document.getElementById('value1')
-    if(time > 250){
+function rollDiv(value,index,timer,stagger){
+    //debugger
+    let div = document.getElementById(`value${value}`)
+    let clock = timer
+    if(clock > stagger){
         resetRoll()
-        slotNums[0] = parseInt(value.textContent)
+        slotNums[value-1] = parseInt(div.textContent)
         return
     }
-    value.textContent = values[x]
-    time += 10
-    setTimeout(rollDiv1, time)
-    if(x+1 == 9){
-        x = 0
+    div.textContent = values[index]
+    clock += 10
+    if(index+1 == 9){
+        index = 0
     }else{
-        x += 1
+        index += 1
     }
+    console.log(`index: ${index}`)
+    console.log(`timer: ${clock}`)
+    setTimeout(() => {
+        rollDiv(value,index,clock,stagger)
+    }, clock)
 }
-
-function rollDiv2(){
-    let value = document.getElementById('value2')
-    if(time2 > 300){
-        resetRoll2()
-        slotNums[1] = parseInt(value.textContent)
-        return
-    }
-    value.textContent = values[x2]
-    time2 += 10
-    setTimeout(rollDiv2, time2)
-    if(x2+1 == 9){
-        x2 = 0
-    }else{
-        x2 += 1
-    }
-}
-
-function rollDiv3(){
-    let value = document.getElementById('value3')
-    if(time3 > 350){
-        resetRoll3()
-        slotNums[2] = parseInt(value.textContent)
-        return
-    }
-    value.textContent = values[x3]
-    time3 += 10
-    setTimeout(rollDiv3, time3)
-    if(x3+1 == 9){
-        x3 = 0
-    }else{
-        x3 += 1
-    }
-}
-
 
 //MATH SHIT
 
@@ -708,18 +679,11 @@ function updateScore(arr){
 function resetRoll(){
     x = getRandomInt(9)
     time = 20
-}
-
-function resetRoll2(){
     x2 = getRandomInt(9)
     time2 = 20
-}
-
-function resetRoll3(){
     x3 = getRandomInt(9)
     time3 = 20
 }
-
 
 // HANDLERS
 
