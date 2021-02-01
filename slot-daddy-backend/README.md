@@ -1,6 +1,6 @@
 # README
 
-# Daddy's Lil Slots
+## 🎲 🎲 🔥DADDY'S LIL SLOTS🔥 🎲 🎲
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ Before you begin, ensure you have met the following requirements:
 - You have installed (https://bundler.io/).
 - You have a Windows/Mac machine.
 
-## Installing Food Connect
+## 🔥 Installing DADDY'S LIL SLOTS
 
 To install Food Connect, follow these steps:
 
@@ -21,9 +21,9 @@ To install Food Connect, follow these steps:
 2. Create a directory where you would like to store the file.
 3. Navigate into that directory and use the command: `git clone <project-SSH>`
 
-## Using
+## 🔥 Using DADDY'S LIL SLOTS
 
-To use Daddy's, follow these steps:
+To use Daddy's Lil Slots, follow these steps:
 After forking, in your terminal type the following commands:
 
 1. `bundle install`
@@ -32,7 +32,7 @@ After forking, in your terminal type the following commands:
 4. `rails s`
 5. `open index.html`
 
-## Contributing to Daddy's Lil Slots
+## Contributing to DADDY'S LIL SLOTS
 
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.

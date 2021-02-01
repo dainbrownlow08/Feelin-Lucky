@@ -5,6 +5,14 @@ div#logo-div {
   justify-content: center;
 }
 
+img#logo-img {
+  margin-left: 30px;
+  display: flex;
+  justify-content: center;
+  max-width: 120%;
+  max-height: 114%;
+  display: block;
+}
 #login-register-div {
   position: absolute;
   top: 0;
@@ -65,9 +73,8 @@ div#flashing-logo-border {
     box-shadow: 0px 0px 78px 4px lightgoldenrodyellow;
   }
 }
-/*
-neonsign 
-*/
+
+/* neonsign */
 @keyframes neonGlow {
   0% {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
@@ -83,15 +90,6 @@ neonsign
       0 0 40px rgba(66, 220, 219, 0.8), 0 0 50px rgba(66, 220, 219, 0.5),
       0 0 80px rgba(66, 220, 219, 0.5);
   }
-}
-
-img#logo-img {
-  margin-left: 30px;
-  display: flex;
-  justify-content: center;
-  max-width: 120%;
-  max-height: 114%;
-  display: block;
 }
 
 /* Game window formatting */
@@ -168,10 +166,6 @@ img#logo-img {
   color: black;
 }
 
-/* #tokes {
-  padding-top: 15px;
-} */
-
 #score {
   --interval: 1s;
   display: block;
@@ -204,7 +198,7 @@ img#logo-img {
 .game-button {
   margin-left: 190px;
 }
-
+ /* end button div */
 #end-button {
   padding-top: 25px;
 }
