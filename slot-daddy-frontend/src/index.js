@@ -1,7 +1,7 @@
 const playersURL = 'http://localhost:3000/players'
 const tokensURL = 'http://localhost:3000/tokens'
 const gamesURL = 'http://localhost:3000/games'
-const logoURL = "../slot-daddy-frontend/assets/SlotDaddyLogo.png"
+const logoURL = "../slot-daddy-frontend/assets/LuckyLogo.png"
 const body = document.querySelector('body')
 let allPlayers = []
 let currentGame;
@@ -556,7 +556,6 @@ function newGame(player){
     body.appendChild(gameWindow)
 }
 
-
 function masterRoll(){
     // call a function that takes event listener away from roll btn, and starts a 7 sec timer to add it back
     if(currentPlayer.tokens.length == 0){
@@ -582,6 +581,7 @@ function masterRoll(){
         },6900);
     }
 }
+
 
 function rollBtnTimer(){
     let rollBtn = document.getElementById('roll-btn')
@@ -614,6 +614,10 @@ function rollDiv(value,index,timer,stagger){
         rollDiv(value,index,clock,stagger)
     }, clock)
 }
+
+
+
+
 
 //MATH SHIT
 

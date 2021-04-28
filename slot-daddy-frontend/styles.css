@@ -13,14 +13,19 @@ img#logo-img {
   max-height: 114%;
   display: block;
 }
+
 #login-register-div {
   position: absolute;
   top: 0;
   bottom: 500;
   left: 0;
   right: 0;
-
   margin: auto;
+  /* background: url(../slot-daddy-frontend/assets/DaddySlots.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; */
 }
 
 div#flashing-logo-border {
@@ -96,7 +101,7 @@ div#flashing-logo-border {
 #game-window {
   width: 507px;
   height: 936px;
-  background-image: url("../slot-daddy-frontend/assets/slotmachine_with_logo.png");
+  background-image: url("../slot-daddy-frontend/assets/slotmachine_with_lucky_logo.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
