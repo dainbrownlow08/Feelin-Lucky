@@ -1,6 +1,6 @@
 # README
 
-## 🎲 🎲 🔥DADDY'S LIL SLOTS🔥 🎲 🎲
+## 🎲 🎲  ☘️  FEELIN' LUCKY? ☘️  🎲 🎲
 
 ## Prerequisites
 
@@ -12,27 +12,27 @@ Before you begin, ensure you have met the following requirements:
 - You have installed (https://bundler.io/).
 - You have a Windows/Mac machine.
 
-## 🔥 Installing DADDY'S LIL SLOTS
+## 🔥 Installing FEELIN' LUCKY?
 
-To install Food Connect, follow these steps:
+To install Feelin' Lucky, follow these steps:
 
 1. Navigate to (https://github.com/dainbrownlow08/phase3project)
    to clone the project.
 2. Create a directory where you would like to store the file.
 3. Navigate into that directory and use the command: `git clone <project-SSH>`
 
-## 🔥 Using DADDY'S LIL SLOTS
+## 🔥 Using FEELIN' LUCKY?
 
-To use Daddy's Lil Slots, follow these steps:
+To use Feelin' Lucky, follow these steps:
 After forking, in your terminal type the following commands:
 
 1. `bundle install`
 2. `rails db:migrate`
 3. `rails db:seed`
 4. `rails s`
-5. `open index.html`
+5. Navigate into the frontend directory and type: `open index.html`
 
-## Contributing to DADDY'S LIL SLOTS
+## Contributing to FEELIN' LUCKY?
 
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
